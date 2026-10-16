@@ -20,7 +20,7 @@ The page is complete without these items, but the additions or confirmations bel
 
 ## Small hidden detail
 
-The word `cover` toggles a brief, subtle “special edition” treatment. It does not interrupt reading or navigation.
+The word `cover` toggles a brief, subtle “special edition” treatment. It does not interrupt reading or navigation. The old draggable stickers have been removed; their scattered controls distracted from the editorial composition.
 
 ## Three useful next additions
 

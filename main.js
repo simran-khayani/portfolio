@@ -142,21 +142,6 @@
     `<span>${esc(activity)}</span>`
   ).join("");
 
-  const stickerTray = $(".sticker-tray");
-  const stickerArt = {
-    seal: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" /><text x="24" y="28" fill="currentColor" text-anchor="middle">SK</text></svg>',
-    star: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m24 3 5.5 13.4L44 18l-11 9.2L36.5 42 24 34.4 11.5 42 15 27.2 4 18l14.5-1.6L24 3Z" /></svg>',
-    chart: '<svg viewBox="0 0 80 40" aria-hidden="true"><path d="M2 32 18 25 27 28 43 12 54 18 77 4" /></svg>',
-    paddle: '<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="19" rx="12" ry="15" /><path d="m19 31 5 12 5-12M18 14h.1m11 0h.1M24 8v.1" /></svg>',
-    tepper: '<svg viewBox="0 0 80 48" aria-hidden="true"><path d="M4 4h57l15 15v25H4z" /><text x="37" y="23" text-anchor="middle">TEPPER</text><text x="37" y="36" text-anchor="middle">’27</text></svg>'
-  };
-  stickerTray.innerHTML = data.stickers.map((sticker) => `
-    <button class="sticker ${esc(sticker.className)}" type="button" data-draggable
-      aria-label="${esc(data.copy.stickerLabels[sticker.id])}" title="${esc(data.copy.stickerInstructions)}">
-      ${stickerArt[sticker.icon]}
-    </button>
-  `).join("");
-
   const menuButton = $(".menu-button");
   const toggleMenu = (open) => {
     menuButton.setAttribute("aria-expanded", String(open));
@@ -184,10 +169,18 @@
   });
 
   const progress = $(".scroll-progress span");
+  const hero = $(".hero");
+  let scrollFrame = 0;
   const updateScroll = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const scale = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-    progress.style.transform = `scaleX(${scale})`;
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const scale = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      progress.style.transform = `scaleX(${scale})`;
+      const drift = Math.min(window.scrollY, window.innerHeight) * 0.08;
+      hero.style.setProperty("--scroll-drift", `${drift}px`);
+    });
   };
   window.addEventListener("scroll", updateScroll, { passive: true });
   window.addEventListener("resize", updateScroll);
@@ -218,7 +211,10 @@
         }
       });
     }, { threshold: 0.12 });
-    $$(".reveal").forEach((element) => revealObserver.observe(element));
+    $$(".reveal").forEach((element, index) => {
+      element.style.setProperty("--delay", `${Math.min(index % 4, 3) * 70}ms`);
+      revealObserver.observe(element);
+    });
   } else {
     $$(".reveal").forEach((element) => element.classList.add("is-visible"));
   }
@@ -271,68 +267,50 @@
     });
   }
 
-  const placeSticker = (sticker, x, y) => {
-    const halfWidth = sticker.offsetWidth / 2;
-    const halfHeight = sticker.offsetHeight / 2;
-    sticker.style.position = "fixed";
-    sticker.style.left = `${Math.max(halfWidth, Math.min(window.innerWidth - halfWidth, x))}px`;
-    sticker.style.top = `${Math.max(halfHeight, Math.min(window.innerHeight - halfHeight, y))}px`;
-    sticker.style.transform = "translate(-50%, -50%)";
-  };
-  $$("[data-draggable]").forEach((sticker) => {
-    let active = false;
-    let startX = 0;
-    let startY = 0;
-    let originX = 0;
-    let originY = 0;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(pointer: fine)");
+  if (finePointer.matches && !reduceMotion.matches) {
+    const cursor = $(".custom-cursor");
+    const cursorLabel = $("b", cursor);
+    const interactive = $$("a, button, summary");
+    let targetX = -100;
+    let targetY = -100;
+    let currentX = targetX;
+    let currentY = targetY;
+    let cursorFrame = 0;
 
-    sticker.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) return;
-      event.preventDefault();
-      active = true;
-      const rect = sticker.getBoundingClientRect();
-      originX = rect.left + rect.width / 2;
-      originY = rect.top + rect.height / 2;
-      startX = event.clientX;
-      startY = event.clientY;
-      placeSticker(sticker, originX, originY);
-      sticker.classList.add("is-dragging");
-      sticker.setPointerCapture(event.pointerId);
-    });
-    sticker.addEventListener("pointermove", (event) => {
-      if (!active) return;
-      placeSticker(sticker, originX + event.clientX - startX, originY + event.clientY - startY);
-      sticker.style.transform = "translate(-50%, -50%) rotate(-7deg)";
-    });
-    const releaseSticker = () => {
-      if (!active) return;
-      active = false;
-      sticker.classList.remove("is-dragging");
-      sticker.style.transform = "translate(-50%, -50%) rotate(0deg)";
-    };
-    sticker.addEventListener("pointerup", releaseSticker);
-    sticker.addEventListener("pointercancel", releaseSticker);
-    sticker.addEventListener("keydown", (event) => {
-      const directions = {
-        ArrowUp: [0, -8],
-        ArrowDown: [0, 8],
-        ArrowLeft: [-8, 0],
-        ArrowRight: [8, 0]
-      };
-      const direction = directions[event.key];
-      if (!direction) return;
-      event.preventDefault();
-      if (!sticker.style.position) {
-        const rect = sticker.getBoundingClientRect();
-        placeSticker(sticker, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    document.body.classList.add("has-custom-cursor");
+    const moveCursor = () => {
+      currentX += (targetX - currentX) * 0.24;
+      currentY += (targetY - currentY) * 0.24;
+      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      if (Math.abs(targetX - currentX) > 0.25 || Math.abs(targetY - currentY) > 0.25) {
+        cursorFrame = window.requestAnimationFrame(moveCursor);
+      } else {
+        cursorFrame = 0;
       }
-      placeSticker(
-        sticker,
-        Number.parseFloat(sticker.style.left) + direction[0],
-        Number.parseFloat(sticker.style.top) + direction[1]
-      );
+    };
+    document.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (!cursorFrame) cursorFrame = window.requestAnimationFrame(moveCursor);
+      cursor.classList.add("is-visible");
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => cursor.classList.remove("is-visible"));
+    interactive.forEach((element) => {
+      element.addEventListener("pointerenter", () => {
+        const label = element.matches("summary")
+          ? data.copy.cursorRead
+          : element.matches("a") && !element.getAttribute("href")?.startsWith("#")
+            ? data.copy.cursorOpen
+            : data.copy.cursorExplore;
+        cursorLabel.textContent = label;
+        cursor.classList.add("is-active");
+      });
+      element.addEventListener("pointerleave", () => cursor.classList.remove("is-active"));
     });
-  });
+  }
 
   let secret = "";
   document.addEventListener("keydown", (event) => {
@@ -340,7 +318,7 @@
     secret = (secret + event.key.toLowerCase()).slice(-5);
     if (secret === "cover") {
       document.body.classList.toggle("special-edition");
-      showToast(data.copy.stickerLabels.easterEgg);
+      showToast(data.copy.specialEdition);
     }
   });
 })();

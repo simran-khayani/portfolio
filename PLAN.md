@@ -20,8 +20,8 @@
 ## Phase C — interactions and motion
 
 - [x] Add active-section navigation, a progress indicator and an accessible mobile menu that closes on selection and Escape.
-- [x] Add restrained hero/reveal motion, hover feedback and reduced-motion behavior.
-- [x] Add keyboard- and pointer-draggable editorial stickers, with touch-safe placement.
+- [x] Add a themed desktop cursor, scroll-linked hero drift, animated editorial linework, section reveals and reduced-motion behavior.
+- [x] Remove draggable stickers in favor of one purposeful, decorative data-line motif.
 - [x] Add desktop-only magnetic buttons, copy-email feedback, interactive skill chapters and a non-blocking easter egg.
 - [x] Ensure content remains available if JavaScript observers or animations do not run.
 
@@ -29,7 +29,7 @@
 
 - [x] Check that all required facts and numbers are present and no phone number is shown.
 - [x] Check asset paths, resume download and external project/social destinations.
-- [x] Validate rendered content, mobile navigation, skill controls, email copying and responsive overflow in a browser.
+- [x] Validate rendered content, mobile navigation, skill controls, email copying, desktop cursor and responsive overflow in a browser.
 - [x] Review the final diff and push the completed changes to the configured remote.
 
 ## Definition of done

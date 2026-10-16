@@ -38,8 +38,6 @@ const portfolioContent = {
     skip: "Skip to content",
     backToTop: "Back to top",
     navigation: "Primary navigation",
-    stickerTray: "Movable portfolio details",
-    moveSticker: "Drag or use arrow keys to move",
     coverNumber: "01 / 06",
     workCta: "Explore the work",
     contactCta: "Get in touch",
@@ -95,15 +93,10 @@ const portfolioContent = {
       instagram: "Instagram"
     },
     footer: "Curious by nature. Specific by design.",
-    stickerLabels: {
-      seal: "Draggable SK seal",
-      star: "Draggable gold star",
-      chart: "Draggable data line",
-      paddle: "Draggable pickleball paddle",
-      tepper: "Draggable Tepper ’27 tag",
-      easterEgg: "Special edition unlocked"
-    },
-    stickerInstructions: "Drag or use arrow keys to move"
+    cursorExplore: "Explore",
+    cursorOpen: "Open",
+    cursorRead: "Read",
+    specialEdition: "Special edition unlocked"
   },
   experience: [
     {
@@ -223,14 +216,7 @@ const portfolioContent = {
   },
   outside: {
     activities: ["Pickleball", "Content creation"]
-  },
-  stickers: [
-    { id: "seal", icon: "seal", className: "sticker-seal" },
-    { id: "star", icon: "star", className: "sticker-star" },
-    { id: "chart", icon: "chart", className: "sticker-chart" },
-    { id: "paddle", icon: "paddle", className: "sticker-paddle" },
-    { id: "tepper", icon: "tepper", className: "sticker-tepper" }
-  ]
+  }
 };
 
 window.portfolioContent = portfolioContent;

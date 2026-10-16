@@ -55,11 +55,20 @@
         <div class="cover-caption"><span data-person="name"></span><span data-copy="coverCaption"></span></div>
       </div>
       <p class="hero-note" data-copy="coverNote"></p>
-      <div class="sticker-tray" data-copy-aria="stickerTray" aria-label=""></div>
+      <div class="hero-constellation" aria-hidden="true">
+        <svg viewBox="0 0 280 160" fill="none">
+          <path d="M12 124C72 123 73 53 130 62s58 53 103 11 29-42 37-55" />
+          <circle cx="12" cy="124" r="4" />
+          <circle cx="130" cy="62" r="4" />
+          <circle cx="233" cy="73" r="4" />
+          <circle cx="270" cy="18" r="4" />
+        </svg>
+        <span>01—06</span>
+      </div>
     </section>
 
     <section id="experience" class="section-shell section-block" aria-labelledby="experience-title">
-      <div class="section-intro">
+      <div class="section-intro reveal">
         <p class="eyebrow" data-copy="experience.eyebrow"></p>
         <h2 id="experience-title" data-copy="experience.title"></h2>
         <p data-copy="experience.intro"></p>
@@ -69,7 +78,7 @@
 
     <section id="recognition" class="recognition section-block" aria-labelledby="recognition-title">
       <div class="section-shell">
-        <div class="section-intro">
+        <div class="section-intro reveal">
           <p class="eyebrow" data-copy="recognition.eyebrow"></p>
           <h2 id="recognition-title" data-copy="recognition.title"></h2>
         </div>
@@ -78,7 +87,7 @@
     </section>
 
     <section id="projects" class="section-shell section-block" aria-labelledby="projects-title">
-      <div class="section-intro">
+      <div class="section-intro reveal">
         <p class="eyebrow" data-copy="projects.eyebrow"></p>
         <h2 id="projects-title" data-copy="projects.title"></h2>
       </div>
@@ -86,7 +95,7 @@
     </section>
 
     <section id="education" class="section-shell section-block" aria-labelledby="education-title">
-      <div class="section-intro">
+      <div class="section-intro reveal">
         <p class="eyebrow" data-copy="education.eyebrow"></p>
         <h2 id="education-title" data-copy="education.title"></h2>
       </div>
@@ -95,7 +104,7 @@
 
     <section id="skills" class="skills-section section-block" aria-labelledby="skills-title">
       <div class="section-shell">
-        <div class="section-intro">
+        <div class="section-intro reveal">
           <p class="eyebrow" data-copy="skills.eyebrow"></p>
           <h2 id="skills-title" data-copy="skills.title"></h2>
           <p data-copy="skills.hint"></p>
@@ -105,7 +114,7 @@
     </section>
 
     <section id="outside" class="outside section-block" aria-labelledby="outside-title">
-      <div class="section-shell outside-inner">
+      <div class="section-shell outside-inner reveal">
         <div>
           <p class="eyebrow" data-copy="outside.eyebrow"></p>
           <h2 id="outside-title" data-copy="outside.title"></h2>
@@ -120,7 +129,7 @@
     </section>
 
     <section id="contact" class="contact section-shell section-block" aria-labelledby="contact-title">
-      <div class="contact-inner">
+      <div class="contact-inner reveal">
         <p class="eyebrow" data-copy="contact.eyebrow"></p>
         <h2 id="contact-title" data-copy="contact.title"></h2>
         <p class="contact-intro" data-copy="contact.intro"></p>
@@ -150,6 +159,7 @@
     <a href="#top" data-copy-aria="backToTop" aria-label="">↑</a>
   </footer>
 
+  <div class="custom-cursor" aria-hidden="true"><span></span><b></b></div>
   <div class="toast" role="status" aria-live="polite"></div>
   <script src="content.js"></script>
   <script src="main.js"></script>
