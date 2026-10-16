@@ -5,7 +5,7 @@ The page is complete without these items, but the additions or confirmations bel
 ## Assets to add
 
 - [ ] **Dashboard screenshot** — There is no real dashboard image yet. A screenshot would show the shipped project rather than a designed placeholder. Add it at `Assets/projects/ai-compliance-dashboard.jpg`. Ready-to-paste prompt: “I added `Assets/projects/ai-compliance-dashboard.jpg`. Replace the project cover placeholder with the screenshot and keep the rest of the design the same.”
-- [ ] **Expected organized resume copy** — The working resume PDF is currently `Simran Khayani - Resume Complete.pdf` in the repository root, so the download already works. If you prefer the brief’s organized path, add `Assets/docs/resume.pdf`. Ready-to-paste prompt: “I added `Assets/docs/resume.pdf`. Point the résumé button to it and keep the current download behavior.”
+- [ ] **Expected organized resume copy** — The working resume PDF is currently `Simran Khayani - Resume Complete.pdf` in the repository root. The résumé button opens its browser PDF preview, where visitors can download a copy. If you prefer the brief’s organized path, add `Assets/docs/resume.pdf`. Ready-to-paste prompt: “I added `Assets/docs/resume.pdf`. Point the résumé preview button to it and keep the browser preview behavior.”
 
 ## Copy and fact checks
 

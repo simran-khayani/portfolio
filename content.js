@@ -30,9 +30,9 @@ const portfolioContent = {
     { id: "contact", label: "Contact" }
   ],
   copy: {
-    resume: "Download résumé",
+    resume: "View résumé",
     resumeShort: "Résumé",
-    downloadResume: "Download résumé",
+    previewResume: "Preview résumé; download available in the PDF viewer",
     menu: "Menu",
     closeMenu: "Close menu",
     skip: "Skip to content",
@@ -141,7 +141,7 @@ const portfolioContent = {
       role: "Global Development Initiative",
       location: "Program",
       mark: "MF",
-      logoImage: "",
+      logoImage: "Logos/mckinsey-forward.png",
       summary: "A global learning program in structured problem-solving, stakeholder management and analytical storytelling.",
       details: [
         "Strengthened leadership, analytical problem-solving and digital transformation capabilities.",
