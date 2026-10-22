@@ -135,7 +135,7 @@ h3 {
 }
 
 .section-block {
-  padding-block: clamp(88px, 12vw, 164px);
+  padding-block: clamp(48px, 6vw, 88px);
 }
 
 .eyebrow,
@@ -438,10 +438,10 @@ body.has-custom-cursor summary {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  min-height: min(820px, calc(100svh - 72px));
+  min-height: min(640px, calc(100svh - 72px));
   align-items: center;
   gap: 44px;
-  padding-block: 62px 108px;
+  padding-block: 40px 56px;
   isolation: isolate;
 }
 
@@ -651,7 +651,7 @@ body.has-custom-cursor summary {
 
 .section-intro {
   max-width: 720px;
-  margin-bottom: clamp(38px, 6vw, 70px);
+  margin-bottom: clamp(24px, 3.5vw, 44px);
 }
 
 .section-intro > p:last-child {
@@ -1257,7 +1257,7 @@ body.has-custom-cursor summary {
 }
 
 .contact {
-  padding-bottom: 110px;
+  padding-bottom: 64px;
 }
 
 .contact-inner {
@@ -1503,7 +1503,7 @@ body.has-custom-cursor summary {
   .experience-card {
     grid-template-columns: 1fr 2.8fr;
     gap: 32px;
-    padding-block: 42px 52px;
+    padding-block: 30px 36px;
   }
 
   .experience-meta {
@@ -1615,8 +1615,8 @@ body.has-custom-cursor summary {
   }
 
   .hero {
-    min-height: min(830px, calc(100svh - 76px));
-    padding-block: 60px 105px;
+    min-height: min(660px, calc(100svh - 76px));
+    padding-block: 44px 60px;
   }
 
   .hero-visual {
