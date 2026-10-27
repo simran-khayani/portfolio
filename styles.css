@@ -135,7 +135,7 @@ h3 {
 }
 
 .section-block {
-  padding-block: clamp(48px, 6vw, 88px);
+  padding-block: clamp(32px, 4vw, 56px);
 }
 
 .eyebrow,
@@ -651,7 +651,7 @@ body.has-custom-cursor summary {
 
 .section-intro {
   max-width: 720px;
-  margin-bottom: clamp(24px, 3.5vw, 44px);
+  margin-bottom: clamp(18px, 2.5vw, 32px);
 }
 
 .section-intro > p:last-child {
@@ -669,7 +669,7 @@ body.has-custom-cursor summary {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  padding-block: 30px 42px;
+  padding-block: 24px 30px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -761,7 +761,7 @@ body.has-custom-cursor summary {
 
 .experience-summary {
   max-width: 720px;
-  margin: 24px 0 20px;
+  margin: 16px 0 14px;
   font-family: var(--serif);
   font-size: clamp(1.2rem, 2vw, 1.5rem);
   line-height: 1.45;
@@ -812,7 +812,7 @@ body.has-custom-cursor summary {
 }
 
 .recognition-card {
-  min-height: 210px;
+  min-height: 160px;
   padding: 24px 0 26px;
   border-bottom: 1px solid rgba(255, 255, 255, .3);
 }
@@ -1043,7 +1043,7 @@ body.has-custom-cursor summary {
   grid-template-columns: 56px 1fr 24px;
   align-items: start;
   gap: 16px;
-  padding-block: 30px;
+  padding-block: 24px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1076,7 +1076,7 @@ body.has-custom-cursor summary {
 
 .coursework {
   max-width: 750px;
-  margin-top: 23px;
+  margin-top: 16px;
   border-top: 1px solid var(--line);
 }
 
@@ -1139,7 +1139,7 @@ body.has-custom-cursor summary {
 .skill-toggle {
   display: grid;
   width: 100%;
-  min-height: 76px;
+  min-height: 60px;
   grid-template-columns: 48px 1fr 30px;
   align-items: center;
   gap: 12px;
@@ -1257,7 +1257,7 @@ body.has-custom-cursor summary {
 }
 
 .contact {
-  padding-bottom: 64px;
+  padding-bottom: 44px;
 }
 
 .contact-inner {
@@ -1270,7 +1270,7 @@ body.has-custom-cursor summary {
 
 .contact-intro {
   max-width: 550px;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
   color: var(--muted);
   font-size: 1.05rem;
 }
@@ -1441,7 +1441,7 @@ body.has-custom-cursor summary {
   }
 
   .recognition-card {
-    min-height: 250px;
+    min-height: 180px;
     padding: 25px 22px 20px 0;
     border-right: 1px solid rgba(255, 255, 255, .3);
     border-bottom: 0;
@@ -1503,7 +1503,7 @@ body.has-custom-cursor summary {
   .experience-card {
     grid-template-columns: 1fr 2.8fr;
     gap: 32px;
-    padding-block: 30px 36px;
+    padding-block: 24px 28px;
   }
 
   .experience-meta {
@@ -1531,7 +1531,7 @@ body.has-custom-cursor summary {
   .education-card {
     grid-template-columns: 70px 1fr 28px;
     gap: 22px;
-    padding-block: 38px;
+    padding-block: 26px;
   }
 
   .school-mark {
