@@ -45,6 +45,14 @@
 
   $("#email-link").textContent = data.person.email;
   $("#email-link").href = `mailto:${data.person.email}`;
+  $("#hero-email").textContent = data.person.email;
+  $("#hero-email").href = `mailto:${data.person.email}`;
+
+  const school = data.education[0];
+  $("#hero-school").innerHTML = `
+    <img src="${esc(school.logoImage)}" alt="" width="40" height="40" />
+    <span><b>${esc(school.school)}</b><small>${esc(school.degree)} · ${esc(school.date)}</small></span>
+  `;
 
   $("#experience-list").innerHTML = data.experience.map((item, index) => `
     <article class="experience-card reveal" style="--delay:${index * 90}ms">
@@ -278,22 +286,32 @@
     let currentX = targetX;
     let currentY = targetY;
     let cursorFrame = 0;
+    let lastTime = 0;
 
     document.body.classList.add("has-custom-cursor");
-    const moveCursor = () => {
-      currentX += (targetX - currentX) * 0.24;
-      currentY += (targetY - currentY) * 0.24;
+    // Time-based easing keeps the glide equally smooth on 60Hz and 120Hz screens.
+    const moveCursor = (time) => {
+      const elapsed = lastTime ? Math.min(time - lastTime, 64) : 16;
+      lastTime = time;
+      const ease = 1 - Math.exp(-elapsed / 55);
+      currentX += (targetX - currentX) * ease;
+      currentY += (targetY - currentY) * ease;
       cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      if (Math.abs(targetX - currentX) > 0.25 || Math.abs(targetY - currentY) > 0.25) {
+      if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
         cursorFrame = window.requestAnimationFrame(moveCursor);
       } else {
         cursorFrame = 0;
+        lastTime = 0;
       }
     };
     document.addEventListener("pointermove", (event) => {
       if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
       targetX = event.clientX;
       targetY = event.clientY;
+      if (!cursor.classList.contains("is-visible")) {
+        currentX = targetX;
+        currentY = targetY;
+      }
       if (!cursorFrame) cursorFrame = window.requestAnimationFrame(moveCursor);
       cursor.classList.add("is-visible");
     }, { passive: true });

@@ -227,7 +227,7 @@ h3 {
   border-radius: 50%;
   background: rgba(244, 246, 249, .62);
   box-shadow: 0 0 0 3px rgba(244, 246, 249, .35);
-  transition: width .22s ease, height .22s ease, background-color .22s ease;
+  transition: width .32s cubic-bezier(.22, 1, .36, 1), height .32s cubic-bezier(.22, 1, .36, 1), background-color .32s ease;
 }
 
 .custom-cursor > span::after {
@@ -257,7 +257,7 @@ h3 {
   line-height: 1;
   opacity: 0;
   text-transform: uppercase;
-  transition: opacity .18s ease, transform .18s ease;
+  transition: opacity .28s ease, transform .32s cubic-bezier(.22, 1, .36, 1);
 }
 
 .custom-cursor.is-active > span {
@@ -1783,4 +1783,104 @@ body.has-custom-cursor summary {
   .art-line {
     stroke-dashoffset: 0;
   }
+}
+
+.hero-school {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding: 8px 16px 8px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--navy);
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease;
+}
+
+.hero-school:hover {
+  transform: translateY(-1px);
+  border-color: var(--terracotta);
+}
+
+.hero-school img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero-school span {
+  display: grid;
+  line-height: 1.25;
+}
+
+.hero-school b {
+  font-size: .92rem;
+}
+
+.hero-school small {
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.hero-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  max-width: 590px;
+}
+
+.hero-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  color: var(--navy);
+  font-size: .86rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero-contact a:hover {
+  color: var(--terracotta);
+}
+
+.hero-contact svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.hero-contact-email {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 680px) {
+  .hero-school {
+    margin-bottom: 18px;
+  }
+
+  .hero-school small {
+    font-size: .68rem;
+  }
+
+  .hero-contact {
+    gap: 6px 18px;
+  }
+
+  .hero-contact-email {
+    flex-basis: 100%;
+  }
+}
+
+.hero .scroll-cue {
+  display: none;
 }
