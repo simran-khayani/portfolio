@@ -1,180 +1,147 @@
+// All site copy lives here. Text containing "[ADD …]" is a placeholder: it is
+// hidden on the public site and shown highlighted when the URL has ?draft.
 const portfolioContent = {
   person: {
     name: "Simran Khayani",
     monogram: "SK",
-    eyebrow: "Business analytics · risk · product",
-    headline: "I ask what the data changes.",
-    alternateHeadlines: [
-      "More signal. Better decisions. Fewer guesswork meetings.",
-      "Good analysis should change what happens next."
-    ],
-    subline: "I’m studying business analytics at Carnegie Mellon’s Tepper School and exploring finance, investment banking, and strategy. The question I keep coming back to: why do businesses have so much data and still struggle to decide?",
+    headline: "Business analyst in risk, compliance & product strategy.",
+    subhead: "3+ years at Deutsche Bank and Emeritus · MSBA, Carnegie Mellon Tepper, May 2027.",
+    target: "[ADD TARGET ROLES — e.g. “Seeking 2027 full-time roles in risk analytics, strategy and product.”]",
     email: "simrankhayani11@gmail.com",
-    instagramFact: "25K+ views on my Instagram content",
-    image: "Assets/profile.jpeg",
-    imageAlt: "Simran Khayani, photographed for her portfolio",
-    resume: "Simran Khayani - Resume Complete.pdf",
+    resume: "simran-khayani-resume.pdf",
     social: {
       linkedin: "https://www.linkedin.com/in/simran-khayani/",
-      github: "https://github.com/simran-khayani",
-      instagram: "https://www.instagram.com/simplysimpyyy_/"
+      github: "https://github.com/simran-khayani"
     }
   },
   navigation: [
     { id: "experience", label: "Experience" },
+    { id: "work", label: "Selected Work" },
     { id: "recognition", label: "Recognition" },
-    { id: "projects", label: "Projects" },
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
-    { id: "outside", label: "Outside work" },
     { id: "contact", label: "Contact" }
   ],
   copy: {
-    resume: "View résumé",
-    resumeShort: "Résumé",
-    previewResume: "Preview résumé; download available in the PDF viewer",
+    resume: "View resume",
+    resumeShort: "Resume",
+    contactCta: "Get in touch",
     menu: "Menu",
     closeMenu: "Close menu",
     skip: "Skip to content",
-    backToTop: "Back to top",
     navigation: "Primary navigation",
-    coverNumber: "01 / 06",
-    workCta: "Explore the work",
-    contactCta: "Get in touch",
-    scrollCue: "A little further down",
-    coverCaption: "MSBA · TEPPER '27",
-    coverNote: "A closer look at the work",
     experience: {
-      eyebrow: "01 / The work",
-      title: "Where the numbers had somewhere to go.",
-      intro: "Product, operations and a learning program—each a closer look at how decisions actually get made."
+      title: "Experience",
+      subtitle: "Risk, compliance and product roles across banking and education."
+    },
+    work: {
+      title: "Selected Work",
+      subtitle: "Case studies, from problem to result.",
+      problem: "Problem",
+      approach: "Approach",
+      result: "Result",
+      tools: "Tools",
+      live: "View live project",
+      brief: "Read the project brief",
+      mockCaption: "Illustrative interface mock-up. Not real data."
     },
     recognition: {
-      eyebrow: "02 / The good news",
-      title: "A few moments that stayed on the record."
-    },
-    projects: {
-      eyebrow: "03 / One project, up close",
-      title: "A risk signal, made easier to read.",
-      imagePending: "Concept artwork · dashboard image to come",
-      artLabel: "An abstract line connecting risk signals",
-      artPrefix: "Case study",
-      artTitle: "Risk",
-      artSubline: "in context",
-      briefLabel: "Read the project brief",
-      liveLabel: "View the live project"
+      title: "Recognition",
+      subtitle: "Career highlights."
     },
     education: {
-      eyebrow: "04 / The study of it",
-      title: "Learning the language behind the numbers.",
-      coursework: "Coursework"
+      title: "Education",
+      subtitle: "Graduate and undergraduate training in analytics and business.",
+      coursework: "Coursework",
+      involvement: "Leadership",
+      certifications: "Certifications & programs"
     },
     skills: {
-      eyebrow: "05 / At the desk",
-      title: "The methods I reach for.",
-      hint: "Open a chapter to see what’s in it."
-    },
-    outside: {
-      eyebrow: "06 / After hours",
-      title: "Away from the spreadsheet.",
-      copy: "Pickleball, content creation, and a soft spot for a story with a good point of view.",
-      factLabel: "Instagram, lately",
-      instagramLink: "A little more over on Instagram"
+      title: "Skills",
+      subtitle: "Tools and methods used in day-to-day work."
     },
     contact: {
-      eyebrow: "The next conversation",
-      title: "Have a decision worth unpacking?",
-      intro: "For roles, collaborations, or a conversation about how analytics can move the work forward.",
+      title: "Contact",
+      subtitle: "For roles, interviews or a conversation about analytics.",
       copyEmail: "Copy email",
-      copiedEmail: "Email copied",
+      copiedEmail: "Email copied.",
       emailError: "Could not copy the address. Please select and copy it.",
       linkedin: "LinkedIn",
-      github: "GitHub",
-      instagram: "Instagram"
+      github: "GitHub"
     },
-    footer: "Curious by nature. Specific by design.",
-    cursorExplore: "Explore",
-    cursorOpen: "Open",
-    cursorRead: "Read",
-    specialEdition: "Special edition unlocked"
+    outside: "Outside work: pickleball and content creation."
   },
   experience: [
     {
-      id: "emeritus",
-      period: "Aug 2025 — Apr 2026",
-      company: "Emeritus",
       role: "Manager, Product",
+      company: "Emeritus",
       location: "Remote",
-      mark: "E",
-      logoType: "wordmark",
+      period: "Aug 2025 — Apr 2026",
       logoImage: "Logos/idacsm2ss__1791418144223.png",
-      summary: "Product strategy across pricing, positioning and value proposition, followed by the work of getting everyone pointed in the same direction.",
+      summary: "Led product strategy across pricing, positioning and value proposition for new and existing offerings.",
       details: [
-        "Shaped product direction across new and existing offerings.",
-        "Built go-to-market targeting and messaging with marketing.",
-        "Aligned marketing, sales, delivery and external partners.",
-        "Mentored associates in product development, go-to-market thinking and analytical rigor.",
-        "Optimized evaluation workflows to improve grading efficiency and consistency."
+        "Shaped product direction across new and existing offerings [ADD METRIC — e.g. number of programs or revenue influenced].",
+        "Built go-to-market targeting and messaging with the marketing team [ADD METRIC — e.g. enrollment or conversion change].",
+        "Aligned marketing, sales, delivery and external partners, and mentored associates in product development and go-to-market thinking.",
+        "Optimized evaluation workflows to improve grading efficiency and consistency [ADD METRIC — e.g. hours saved per cohort]."
       ]
     },
     {
-      id: "deutsche-bank",
-      period: "Aug 2022 — Jul 2025",
-      company: "Deutsche Bank",
       role: "Senior Operations Analyst",
-      location: "Jaipur",
-      mark: "DB",
+      company: "Deutsche Bank",
+      location: "Jaipur, India",
+      period: "Aug 2022 — Jul 2025",
       logoImage: "Logos/images.png",
-      summary: "Risk and compliance work across 200+ FIC clients—looking for the gaps between complete data and useful data.",
+      summary: "Ran risk and compliance analysis across 200+ FIC client relationships.",
       details: [
         "Analyzed 200+ FIC clients for risk indicators, data gaps and workflow trends.",
         "Built an Excel tracker that reduced manual processing effort by ~15%.",
-        "Reviewed KYC/EDD cases and resolved inconsistencies across 300+ client profiles.",
-        "Contributed to a GenAI automation initiative for due-diligence workflows.",
-        "Worked with Relationship Managers, Compliance and Transformation teams."
-      ]
-    },
-    {
-      id: "mckinsey-forward",
-      period: "Aug 2025",
-      company: "McKinsey Forward Program",
-      role: "Global Development Initiative",
-      location: "Program",
-      mark: "MF",
-      logoImage: "Logos/mckinsey-forward.png",
-      summary: "A global learning program in structured problem-solving, stakeholder management and analytical storytelling.",
-      details: [
-        "Strengthened leadership, analytical problem-solving and digital transformation capabilities.",
-        "Engaged with modules designed to improve decision-making in complex business environments."
+        "Resolved inconsistencies across 300+ client profiles through KYC/EDD case reviews.",
+        "Contributed to a GenAI automation initiative for due-diligence workflows with Relationship Manager, Compliance and Transformation teams [ADD METRIC — e.g. cases automated or time saved]."
       ]
     }
   ],
   recognition: [
-    { figure: "18", suffix: "months", label: "Promoted to Senior Analyst (SME)." },
-    { figure: "4", suffix: "in a row", label: "Consecutive Best Employee awards." },
-    { figure: "01", suffix: "paper", label: "Best Research Paper at an international college conference." }
+    { figure: "18", unit: "months", label: "Promoted to Senior Analyst (SME)" },
+    { figure: "4", unit: "consecutive", label: "Best Employee awards" }
   ],
   projects: [
     {
       title: "AI Compliance Dashboard",
-      period: "Aug 2024 — Jul 2025",
-      location: "Jaipur",
-      status: "Shipped",
-      summary: "An AI-powered dashboard for spotting risk and helping operations teams decide whether to maintain or offboard customer relationships.",
-      body: "I researched risk trends, built the interface with SQL and Python, used Claude and AI-assisted coding, and coordinated with internal and external stakeholders. The aim: give the team a clearer way to make the call.",
-      tags: ["SQL", "Python", "Risk analysis", "Data visualization", "Claude"],
+      meta: "Shipped · Aug 2024 — Jul 2025 · Jaipur",
+      problem: "Operations teams needed a clearer way to decide whether to maintain or offboard customer relationships based on risk.",
+      approach: "Researched risk trends, built the interface with SQL and Python using Claude and AI-assisted coding, and coordinated with internal and external stakeholders.",
+      result: "Shipped a live AI-powered dashboard that surfaces risk signals for the maintain-or-offboard decision [ADD METRIC — e.g. review time saved or cases covered].",
+      tools: ["SQL", "Python", "Claude", "Data visualization", "Risk analysis"],
       link: "https://ai-compliance-dashboard-ashen.vercel.app/",
       brief: "Assets/projects/AI_Due_Diligence_Compliance_Risk_PRD.pdf",
-      image: "Assets/projects/ai-compliance-dashboard.jpg"
+      mock: true
+    },
+    {
+      placeholder: true,
+      title: "[ADD PROJECT — Tepper project 1 title]",
+      meta: "[ADD PROJECT — course or client · term]",
+      problem: "[ADD PROJECT — the business question]",
+      approach: "[ADD PROJECT — data, methods and your role]",
+      result: "[ADD PROJECT — the outcome, with a metric]",
+      tools: ["[ADD PROJECT — tools]"]
+    },
+    {
+      placeholder: true,
+      title: "[ADD PROJECT — Tepper project 2 title]",
+      meta: "[ADD PROJECT — course or client · term]",
+      problem: "[ADD PROJECT — the business question]",
+      approach: "[ADD PROJECT — data, methods and your role]",
+      result: "[ADD PROJECT — the outcome, with a metric]",
+      tools: ["[ADD PROJECT — tools]"]
     }
   ],
   education: [
     {
       school: "Carnegie Mellon University",
-      place: "Tepper School of Business · Pittsburgh, PA",
+      unit: "Tepper School of Business · Pittsburgh, PA",
       degree: "Master of Science in Business Analytics",
       date: "May 2027",
-      mark: "CMU",
       logoImage: "Logos/wordmarksquare-red-600x600.png",
       coursework: [
         "Statistical Foundations of Business Analytics",
@@ -186,10 +153,9 @@ const portfolioContent = {
     },
     {
       school: "Sophia College",
-      place: "MDSU · Ajmer, India",
+      unit: "MDSU · Ajmer, India",
       degree: "Bachelor of Business Administration",
       date: "May 2022",
-      mark: "SC",
       logoImage: "Logos/logo.webp",
       coursework: [
         "Financial Management",
@@ -201,10 +167,17 @@ const portfolioContent = {
         "Business Research",
         "Investment Management"
       ],
-      extras: [
+      involvement: [
         "President, Management Forum & Women Development Cell",
         "National Service Scheme (NSS) member"
       ]
+    }
+  ],
+  certifications: [
+    {
+      name: "McKinsey Forward Program",
+      date: "Aug 2025",
+      detail: "Structured problem-solving, stakeholder management and analytical storytelling."
     }
   ],
   skills: {
@@ -213,9 +186,6 @@ const portfolioContent = {
     "Product & strategy": ["Product strategy", "Pricing and positioning", "Go-to-market", "Structured problem-solving", "Analytical storytelling"],
     "Leadership": ["Stakeholder management", "Cross-functional leadership", "Mentoring"],
     "AI & automation": ["GenAI automation", "Claude", "AI-assisted coding"]
-  },
-  outside: {
-    activities: ["Pickleball", "Content creation"]
   }
 };
 

@@ -1,29 +1,34 @@
-# Missing items and open questions
+# Placeholders and open questions
 
-The page is complete without these items, but the additions or confirmations below would make the portfolio more specific. The website uses the existing `Assets/` and `Logos/` folders; paths are case-sensitive.
+This file is excluded from the live site (see `.vercelignore`).
 
-## Assets to add
+Every placeholder lives in `content.js` and starts with `[ADD`. The public site hides them. To see them highlighted, open the site with `?draft` added to the address, for example `https://simrankhayani.vercel.app/?draft`. To fill one in, replace the whole bracketed text with your wording.
 
-- [ ] **Dashboard screenshot** — There is no real dashboard image yet. A screenshot would show the shipped project rather than a designed placeholder. Add it at `Assets/projects/ai-compliance-dashboard.jpg`. Ready-to-paste prompt: “I added `Assets/projects/ai-compliance-dashboard.jpg`. Replace the project cover placeholder with the screenshot and keep the rest of the design the same.”
-- [ ] **Expected organized resume copy** — The working resume PDF is currently `Simran Khayani - Resume Complete.pdf` in the repository root. The résumé button opens its browser PDF preview, where visitors can download a copy. If you prefer the brief’s organized path, add `Assets/docs/resume.pdf`. Ready-to-paste prompt: “I added `Assets/docs/resume.pdf`. Point the résumé preview button to it and keep the browser preview behavior.”
+## Placeholders
 
-## Copy and fact checks
+### Hero
+- [ ] **Target roles**: `person.target`. One line saying which roles you're seeking, for example "Seeking 2027 full-time roles in risk analytics, strategy and product."
 
-- [ ] **Alternative headlines** — The chosen headline is “I ask what the data changes.” Two alternatives are “More signal. Better decisions. Fewer guesswork meetings.” and “Good analysis should change what happens next.” This matters if one sounds more like you. Belongs in `content.js` → `person.headline` and `person.alternateHeadlines`. Ready-to-paste prompt: “Use this headline instead: [paste your preferred headline], and keep the rest of the portfolio unchanged.”
-- [ ] **Deutsche Bank result** — The form says “reduced KYC processing time by 15% through process automation”; the resume says the Excel tracker “reduced manual processing effort by ~15%.” The site currently follows the resume. Which version is accurate? Belongs in `content.js` → `experience[1].details`. Ready-to-paste prompt: “For Deutsche Bank, use this exact result: [confirmed wording].”
-- [ ] **Deutsche Bank title** — The form says “Senior Operational Analyst”; the resume says “Senior Operations Analyst.” The site currently follows the resume. Please confirm the title. Belongs in `content.js` → `experience[1].role`. Ready-to-paste prompt: “Confirm my Deutsche Bank title is [exact title].”
-- [ ] **Emeritus company name** — The form says “Emeritus Learning”; the resume says “Emeritus.” The site currently follows the resume. Please confirm the company name. Belongs in `content.js` → `experience[0].company`. Ready-to-paste prompt: “Confirm the company name should appear as [exact company name].”
-- [ ] **Hobbies** — The site shows “Pickleball” and “Content creation.” Please confirm that “pickle” means pickleball. Belongs in `content.js` → `outside.activities`. Ready-to-paste prompt: “Confirm my hobbies should be shown as [your preferred wording].”
-- [ ] **Instagram fact** — The site says “25K+ views on my Instagram content.” Would you prefer different wording or a time frame? Belongs in `content.js` → `person.instagramFact`. Ready-to-paste prompt: “Use this Instagram fact instead: [exact wording and time frame, if applicable].”
-- [ ] **Skills** — The grouped list uses skills supplied in the brief and resume. Please confirm it and add any tools you use that are not listed (for example Tableau, Power BI, or a SQL dialect). Belongs in `content.js` → `skills`. Ready-to-paste prompt: “Update my skills with these confirmed tools and skills: [list].”
-- [ ] **McKinsey Forward wording** — The resume’s final bullet ends mid-sentence. The site uses the complete program description and the two complete resume points, and leaves that unfinished claim out. How would you like the final bullet worded? Belongs in `content.js` → `experience[2].summary` or `experience[2].details`. Ready-to-paste prompt: “Replace my McKinsey Forward description with: [approved description].”
+### Experience: Emeritus
+- [ ] **Product direction**: `experience[0].details[0]`. A metric such as number of programs or revenue influenced.
+- [ ] **Go-to-market**: `experience[0].details[1]`. A metric such as enrollment or conversion change.
+- [ ] **Evaluation workflows**: `experience[0].details[3]`. A metric such as hours saved per cohort.
 
-## Small hidden detail
+### Experience: Deutsche Bank
+- [ ] **GenAI initiative**: `experience[1].details[3]`. A metric such as cases automated or time saved.
 
-The word `cover` toggles a brief, subtle “special edition” treatment. It does not interrupt reading or navigation. The old draggable stickers have been removed; their scattered controls distracted from the editorial composition.
+### Selected Work
+- [ ] **AI Compliance Dashboard result**: `projects[0].result`. A metric such as review time saved or cases covered.
+- [ ] **Tepper project 1**: `projects[1]`. Title, course or client and term, problem, approach, result, tools.
+- [ ] **Tepper project 2**: `projects[2]`. Same fields as project 1.
 
-## Three useful next additions
+These project cards stay hidden on the public site until you fill them in. Once a project is complete, delete its `placeholder: true` line so the card appears publicly.
 
-1. A real dashboard screenshot at `Assets/projects/ai-compliance-dashboard.jpg`.
-2. Confirmation of the Deutsche Bank result and title so the strongest measurable detail is exact.
-3. Your preferred final wording for the unfinished McKinsey Forward bullet.
+## Facts to confirm
+
+- [ ] **Experience length**: the hero says "3+ years at Deutsche Bank and Emeritus." Your dates add up to about 3 years 8 months.
+- [ ] **Deutsche Bank result**: an older form said "reduced KYC processing time by 15% through process automation"; the resume says the Excel tracker "reduced manual processing effort by ~15%." The site follows the resume.
+- [ ] **Deutsche Bank title**: "Senior Operations Analyst" (resume) or "Senior Operational Analyst" (form). The site follows the resume.
+- [ ] **Emeritus company name**: "Emeritus" (resume) or "Emeritus Learning" (form). The site follows the resume.
+- [ ] **AI Compliance Dashboard context**: the dates (Aug 2024 to Jul 2025, Jaipur) overlap with Deutsche Bank. If it was built on the job, check it's fine to show publicly. The image is an illustrative mock-up, not real data.
+- [ ] **Skills**: add any tools you use that aren't listed, such as Tableau, Power BI or a SQL dialect.
