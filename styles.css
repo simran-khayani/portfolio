@@ -1,16 +1,16 @@
 :root {
   color-scheme: light;
-  --bg: #faf8f4;
+  --bg: #eaf2fd;
   --surface: #ffffff;
-  --tint: #f3eee5;
+  --tint: #e1ecfa;
   --navy: #0f2a44;
   --navy-hover: #1b3d5f;
   --ink: #1d2733;
   --muted: #56606b;
-  --line: #e4ded3;
-  --gold: #b08a4e;
-  --gold-text: #7a5c2c;
-  --gold-on-navy: #d6ba84;
+  --line: #d3e0f1;
+  --gold: #3b82f6;
+  --gold-text: #1d4ed8;
+  --gold-on-navy: #93c5fd;
   --on-navy: #f4f1ea;
   --on-navy-muted: #b9c3cf;
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -149,7 +149,7 @@ a.card:hover,
 .education-card:hover,
 .recognition-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(176, 138, 78, .55);
+  border-color: rgba(59, 130, 246, .55);
   box-shadow: var(--shadow-hover);
 }
 
@@ -159,7 +159,7 @@ a.card:hover,
   top: 0;
   z-index: 50;
   border-bottom: 1px solid var(--line);
-  background: rgba(250, 248, 244, .94);
+  background: rgba(234, 242, 253, .92);
   backdrop-filter: saturate(1.2) blur(8px);
 }
 
@@ -313,6 +313,26 @@ a.card:hover,
   text-decoration: underline;
   text-decoration-color: var(--gold);
   text-underline-offset: 4px;
+}
+
+/* Hero: animated network behind the bento grid */
+.hero-band {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #dbe8fb 0%, var(--bg) 100%);
+}
+
+.network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-band .hero {
+  position: relative;
+  z-index: 1;
 }
 
 /* Hero bento */
@@ -661,7 +681,7 @@ a.fact-school:hover {
 }
 
 .step-box:hover {
-  border-color: rgba(176, 138, 78, .55);
+  border-color: rgba(59, 130, 246, .55);
   background: var(--surface);
 }
 
@@ -782,7 +802,7 @@ a.fact-school:hover {
 
 .mock-chart i {
   flex: 1;
-  background: rgba(214, 186, 132, .35);
+  background: rgba(147, 197, 253, .35);
   transform-origin: bottom;
   transition: transform .3s ease;
 }
@@ -1035,7 +1055,7 @@ a.fact-school:hover {
 }
 
 .skill-chip:hover {
-  border-color: rgba(176, 138, 78, .55);
+  border-color: rgba(59, 130, 246, .55);
   background: var(--surface);
 }
 

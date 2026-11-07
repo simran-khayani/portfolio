@@ -43,6 +43,81 @@
     element.rel = "noopener";
   });
 
+  // Hero background: drifting dots joined by lines when close together.
+  // Pauses off-screen and stays still for people who prefer reduced motion.
+  const band = $(".hero-band");
+  const canvas = $(".network", band);
+  const context = canvas.getContext("2d");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let nodes = [];
+  let networkFrame = 0;
+  let bandVisible = true;
+  const sizeNetwork = () => {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const { width, height } = band.getBoundingClientRect();
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.min(80, Math.round((width * height) / 14000));
+    nodes = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - .5) * .3,
+      vy: (Math.random() - .5) * .3
+    }));
+  };
+  const drawNetwork = () => {
+    const { width, height } = band.getBoundingClientRect();
+    const reach = 150;
+    context.clearRect(0, 0, width, height);
+    nodes.forEach((node, i) => {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const other = nodes[j];
+        const distance = Math.hypot(node.x - other.x, node.y - other.y);
+        if (distance < reach) {
+          context.strokeStyle = `rgba(59, 130, 246, ${(1 - distance / reach) * .3})`;
+          context.beginPath();
+          context.moveTo(node.x, node.y);
+          context.lineTo(other.x, other.y);
+          context.stroke();
+        }
+      }
+    });
+    context.fillStyle = "rgba(37, 99, 235, .45)";
+    nodes.forEach((node) => {
+      context.beginPath();
+      context.arc(node.x, node.y, 2.5, 0, Math.PI * 2);
+      context.fill();
+    });
+  };
+  const stepNetwork = () => {
+    const { width, height } = band.getBoundingClientRect();
+    nodes.forEach((node) => {
+      node.x += node.vx;
+      node.y += node.vy;
+      if (node.x < 0 || node.x > width) node.vx *= -1;
+      if (node.y < 0 || node.y > height) node.vy *= -1;
+    });
+    drawNetwork();
+    networkFrame = bandVisible ? window.requestAnimationFrame(stepNetwork) : 0;
+  };
+  const startNetwork = () => {
+    if (still) drawNetwork();
+    else if (!networkFrame && bandVisible) networkFrame = window.requestAnimationFrame(stepNetwork);
+  };
+  sizeNetwork();
+  startNetwork();
+  window.addEventListener("resize", () => {
+    sizeNetwork();
+    drawNetwork();
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      bandVisible = entry.isIntersecting;
+      startNetwork();
+    }).observe(band);
+  }
+
   const nav = $("#site-nav");
   nav.innerHTML = data.navigation.map(({ id, label }) =>
     `<a href="#${esc(id)}">${esc(label)}</a>`
