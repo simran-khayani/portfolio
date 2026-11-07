@@ -54,52 +54,21 @@
     $(selector).href = `mailto:${data.person.email}`;
   });
 
-  // Experience: one tab per role.
-  const tabList = $("#experience-tablist");
-  tabList.innerHTML = data.experience.map((item, index) => `
-    <button class="tab" type="button" role="tab" id="role-tab-${index}" aria-controls="role-panel-${index}"
-      aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}">
-      <img src="${esc(item.logoImage)}" width="40" height="40" alt="" loading="lazy" />
-      <span><b>${esc(item.company)}</b><small>${esc(item.period)}</small></span>
-    </button>
-  `).join("");
-  $("#experience-panels").innerHTML = data.experience.map((item, index) => `
-    <div class="tab-panel" role="tabpanel" id="role-panel-${index}" aria-labelledby="role-tab-${index}" tabindex="0" ${index === 0 ? "" : "hidden"}>
-      <div class="experience-heading">
-        <h3>${esc(item.role)}</h3>
+  // Experience: every role is shown as its own card.
+  $("#experience-list").innerHTML = data.experience.map((item) => `
+    <article class="card experience-card reveal">
+      <div class="experience-company">
+        <img src="${esc(item.logoImage)}" width="40" height="40" alt="${esc(item.company)} logo" loading="lazy" />
+        <span><b>${esc(item.company)}</b><small>${esc(item.location)}</small></span>
         <p class="experience-period">${esc(item.period)}</p>
       </div>
-      <p class="experience-meta">${esc(item.company)} · ${esc(item.location)}</p>
-      <p class="experience-summary">${text(item.summary)}</p>
-      <ul class="experience-points">${item.details.map((detail) => `<li>${text(detail)}</li>`).join("")}</ul>
-    </div>
+      <div class="experience-body">
+        <h3>${esc(item.role)}</h3>
+        <p class="experience-summary">${text(item.summary)}</p>
+        <ul class="experience-points">${item.details.map((detail) => `<li>${text(detail)}</li>`).join("")}</ul>
+      </div>
+    </article>
   `).join("");
-  const tabs = $$(".tab", tabList);
-  const selectTab = (index, focus = false) => {
-    tabs.forEach((tab, i) => {
-      const selected = i === index;
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
-    });
-    if (focus) tabs[index].focus();
-  };
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => selectTab(index));
-    tab.addEventListener("keydown", (event) => {
-      const moves = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-      if (event.key in moves) {
-        event.preventDefault();
-        selectTab((index + moves[event.key] + tabs.length) % tabs.length, true);
-      } else if (event.key === "Home" || event.key === "End") {
-        event.preventDefault();
-        selectTab(event.key === "Home" ? 0 : tabs.length - 1, true);
-      }
-    });
-  });
-  $$("[data-role-link]").forEach((link) => {
-    link.addEventListener("click", () => selectTab(Number(link.dataset.roleLink)));
-  });
 
   // Selected work: case study split into boxes.
   const labels = data.copy.work;

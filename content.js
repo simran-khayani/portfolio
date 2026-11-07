@@ -32,7 +32,7 @@ const portfolioContent = {
     navigation: "Primary navigation",
     experience: {
       title: "Experience",
-      subtitle: "Risk, compliance and product roles across banking and education. Select a role to see the details."
+      subtitle: "Risk, compliance and product roles across banking and education."
     },
     work: {
       title: "Selected Work",

@@ -144,6 +144,7 @@ a.card {
 }
 
 a.card:hover,
+.experience-card:hover,
 .work-card:hover,
 .education-card:hover,
 .recognition-card:hover {
@@ -504,37 +505,29 @@ a.fact-school:hover {
   font-size: .9375rem;
 }
 
-/* Experience tabs */
-.experience-tabs {
+/* Experience: one card per role, side by side */
+.experience-list {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.experience-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-.tab-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px;
-  border-right: 1px solid var(--line);
-  background: var(--tint);
-}
-
-.tab {
+.experience-company {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--ink);
-  text-align: left;
-  cursor: pointer;
-  transition: background-color .15s ease, border-color .15s ease;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--tint);
 }
 
-.tab img {
+.experience-company img {
   width: 40px;
   height: 40px;
   flex: none;
@@ -544,33 +537,26 @@ a.fact-school:hover {
   object-fit: contain;
 }
 
-.tab span {
+.experience-company span {
   display: grid;
 }
 
-.tab b {
+.experience-company b {
   color: var(--navy);
   font-weight: 600;
 }
 
-.tab small {
+.experience-company small {
   color: var(--muted);
   font-size: .8125rem;
 }
 
-.tab:hover {
-  background: rgba(255, 255, 255, .7);
+.experience-company .experience-period {
+  margin-left: auto;
 }
 
-.tab[aria-selected="true"] {
-  border-color: var(--line);
-  background: var(--surface);
-  box-shadow: inset 3px 0 0 var(--gold);
-}
-
-.tab-panel {
-  padding: 32px 40px;
-  animation: panel-in .2s ease;
+.experience-body {
+  padding: 24px 28px 28px;
 }
 
 @keyframes panel-in {
@@ -1226,12 +1212,8 @@ a.fact-school:hover {
     grid-column: span 6;
   }
 
-  .experience-tabs {
-    grid-template-columns: 220px minmax(0, 1fr);
-  }
-
-  .tab-panel {
-    padding: 28px;
+  .experience-list {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .work-top {
@@ -1329,33 +1311,18 @@ a.fact-school:hover {
     padding-block: 32px;
   }
 
-  .experience-tabs {
-    grid-template-columns: minmax(0, 1fr);
+  .experience-company {
+    flex-wrap: wrap;
+    padding: 14px 20px;
   }
 
-  .tab-list {
-    flex-direction: row;
-    padding: 8px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .experience-company .experience-period {
+    flex-basis: 100%;
+    margin-left: 52px;
   }
 
-  .tab {
-    flex: 1;
-    padding: 8px;
-  }
-
-  .tab img {
-    width: 32px;
-    height: 32px;
-  }
-
-  .tab[aria-selected="true"] {
-    box-shadow: inset 0 -3px 0 var(--gold);
-  }
-
-  .tab-panel {
-    padding: 24px 20px;
+  .experience-body {
+    padding: 20px;
   }
 
   .work-card {
