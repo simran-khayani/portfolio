@@ -10,6 +10,7 @@
     "'": "&#039;"
   })[char]);
   const get = (object, path) => path.split(".").reduce((value, key) => value?.[key], object);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Placeholders ("[ADD …]") are hidden publicly and highlighted with ?draft.
   const draft = new URLSearchParams(window.location.search).has("draft");
@@ -17,9 +18,7 @@
   const text = (value) => draft
     ? esc(value).replace(placeholder, (match) => ` <mark class="placeholder">${match.trim()}</mark>`)
     : esc(String(value).replace(placeholder, "").trim());
-  const plain = (value) => String(value).replace(placeholder, "").trim();
-  const visible = (value) => draft || plain(value) !== "";
-  if (draft) document.documentElement.classList.add("is-draft");
+  const visible = (value) => draft || String(value).replace(placeholder, "").trim() !== "";
 
   $$("[data-copy]").forEach((element) => {
     element.textContent = get(data.copy, element.dataset.copy) ?? "";
@@ -55,21 +54,55 @@
     $(selector).href = `mailto:${data.person.email}`;
   });
 
-  $("#experience-list").innerHTML = data.experience.map((item) => `
-    <article class="experience-card reveal">
-      <img class="experience-logo" src="${esc(item.logoImage)}" width="48" height="48" alt="${esc(item.company)} logo" loading="lazy" />
-      <div class="experience-body">
-        <div class="experience-heading">
-          <h3>${esc(item.role)}</h3>
-          <p class="experience-period">${esc(item.period)}</p>
-        </div>
-        <p class="experience-meta">${esc(item.company)} · ${esc(item.location)}</p>
-        <p class="experience-summary">${text(item.summary)}</p>
-        <ul class="experience-points">${item.details.map((detail) => `<li>${text(detail)}</li>`).join("")}</ul>
-      </div>
-    </article>
+  // Experience: one tab per role.
+  const tabList = $("#experience-tablist");
+  tabList.innerHTML = data.experience.map((item, index) => `
+    <button class="tab" type="button" role="tab" id="role-tab-${index}" aria-controls="role-panel-${index}"
+      aria-selected="${index === 0}" tabindex="${index === 0 ? 0 : -1}">
+      <img src="${esc(item.logoImage)}" width="40" height="40" alt="" loading="lazy" />
+      <span><b>${esc(item.company)}</b><small>${esc(item.period)}</small></span>
+    </button>
   `).join("");
+  $("#experience-panels").innerHTML = data.experience.map((item, index) => `
+    <div class="tab-panel" role="tabpanel" id="role-panel-${index}" aria-labelledby="role-tab-${index}" tabindex="0" ${index === 0 ? "" : "hidden"}>
+      <div class="experience-heading">
+        <h3>${esc(item.role)}</h3>
+        <p class="experience-period">${esc(item.period)}</p>
+      </div>
+      <p class="experience-meta">${esc(item.company)} · ${esc(item.location)}</p>
+      <p class="experience-summary">${text(item.summary)}</p>
+      <ul class="experience-points">${item.details.map((detail) => `<li>${text(detail)}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+  const tabs = $$(".tab", tabList);
+  const selectTab = (index, focus = false) => {
+    tabs.forEach((tab, i) => {
+      const selected = i === index;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
+    });
+    if (focus) tabs[index].focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(index));
+    tab.addEventListener("keydown", (event) => {
+      const moves = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+      if (event.key in moves) {
+        event.preventDefault();
+        selectTab((index + moves[event.key] + tabs.length) % tabs.length, true);
+      } else if (event.key === "Home" || event.key === "End") {
+        event.preventDefault();
+        selectTab(event.key === "Home" ? 0 : tabs.length - 1, true);
+      }
+    });
+  });
+  $$("[data-role-link]").forEach((link) => {
+    link.addEventListener("click", () => selectTab(Number(link.dataset.roleLink)));
+  });
 
+  // Selected work: case study split into boxes.
+  const labels = data.copy.work;
   const mock = `
     <figure class="work-mock" aria-hidden="true">
       <div class="mock-window">
@@ -84,65 +117,94 @@
         </div>
       </div>
     </figure>
-    <p class="work-mock-caption">${esc(data.copy.work.mockCaption)}</p>
+    <p class="work-mock-caption">${esc(labels.mockCaption)}</p>
   `;
-  const labels = data.copy.work;
   $("#work-list").innerHTML = data.projects.filter((item) => draft || !item.placeholder).map((item) => `
-    <article class="work-card reveal ${item.placeholder ? "work-card-placeholder" : ""}">
-      ${item.mock ? `<div class="work-visual">${mock}</div>` : ""}
-      <div class="work-copy">
-        <p class="work-meta">${text(item.meta)}</p>
-        <h3>${text(item.title)}</h3>
-        <dl class="work-steps">
-          ${["problem", "approach", "result"].filter((key) => visible(item[key])).map((key) => `
-            <div><dt>${esc(labels[key])}</dt><dd>${text(item[key])}</dd></div>
-          `).join("")}
-          <div><dt>${esc(labels.tools)}</dt><dd><ul class="tag-list">${item.tools.map((tool) => `<li>${text(tool)}</li>`).join("")}</ul></dd></div>
-        </dl>
-        ${item.link ? `
-          <div class="work-actions">
-            <a class="button button-primary button-small" href="${esc(item.link)}" target="_blank" rel="noopener">${esc(labels.live)} <span aria-hidden="true">↗</span></a>
-            <a class="text-link" href="${esc(item.brief)}" target="_blank" rel="noopener">${esc(labels.brief)} <span aria-hidden="true">↗</span></a>
-          </div>
-        ` : ""}
+    <article class="card work-card reveal ${item.placeholder ? "work-card-placeholder" : ""}">
+      <div class="work-top">
+        ${item.mock ? `<div class="work-visual">${mock}</div>` : ""}
+        <div class="work-intro">
+          <p class="work-meta">${text(item.meta)}</p>
+          <h3>${text(item.title)}</h3>
+          ${item.link ? `
+            <div class="work-actions">
+              <a class="button button-primary button-small" href="${esc(item.link)}" target="_blank" rel="noopener">${esc(labels.live)} <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="${esc(item.brief)}" target="_blank" rel="noopener">${esc(labels.brief)} <span aria-hidden="true">↗</span></a>
+            </div>
+          ` : ""}
+        </div>
       </div>
+      <dl class="work-steps">
+        ${[
+          ...["problem", "approach", "result"].filter((key) => visible(item[key])).map((key) => [labels[key], text(item[key])]),
+          [labels.tools, `<ul class="tag-list">${item.tools.map((tool) => `<li>${text(tool)}</li>`).join("")}</ul>`]
+        ].map(([label, body], index) => `
+          <div class="step-box"><dt><span>0${index + 1}</span>${esc(label)}</dt><dd>${body}</dd></div>
+        `).join("")}
+      </dl>
     </article>
   `).join("");
 
+  // Recognition: figures count up once when they scroll into view.
   $("#recognition-list").innerHTML = data.recognition.map((item) => `
-    <div class="recognition-item reveal">
-      <p class="recognition-figure">${esc(item.figure)}<span>${esc(item.unit)}</span></p>
+    <div class="card recognition-card reveal">
+      <p class="recognition-figure"><span class="count" data-count="${esc(item.figure)}">${esc(item.figure)}</span><small>${esc(item.unit)}</small></p>
       <p class="recognition-label">${esc(item.label)}</p>
     </div>
   `).join("");
 
+  // Education: school cards with a coursework toggle.
   const educationCopy = data.copy.education;
-  $("#education-list").innerHTML = data.education.map((item) => `
-    <article class="education-card reveal">
-      <img class="education-logo" src="${esc(item.logoImage)}" width="48" height="48" alt="${esc(item.school)} logo" loading="lazy" />
-      <div class="education-body">
-        <div class="experience-heading">
-          <h3>${esc(item.school)}</h3>
-          <p class="experience-period">${esc(item.date)}</p>
-        </div>
-        <p class="education-degree">${esc(item.degree)}</p>
-        <p class="experience-meta">${esc(item.unit)}</p>
-        <p class="education-detail"><span>${esc(educationCopy.coursework)}</span>${item.coursework.map(esc).join(" · ")}</p>
-        ${item.involvement ? `<p class="education-detail"><span>${esc(educationCopy.involvement)}</span>${item.involvement.map(esc).join(" · ")}</p>` : ""}
+  $("#education-list").innerHTML = data.education.map((item, index) => `
+    <article class="card education-card reveal">
+      <div class="education-top">
+        <img class="education-logo" src="${esc(item.logoImage)}" width="48" height="48" alt="${esc(item.school)} logo" loading="lazy" />
+        <p class="experience-period">${esc(item.date)}</p>
       </div>
+      <h3>${esc(item.school)}</h3>
+      <p class="education-degree">${esc(item.degree)}</p>
+      <p class="experience-meta">${esc(item.unit)}</p>
+      ${item.involvement ? `<p class="education-detail"><span>${esc(educationCopy.involvement)}</span>${item.involvement.map(esc).join(" · ")}</p>` : ""}
+      <button class="toggle" type="button" aria-expanded="false" aria-controls="coursework-${index}">
+        <span>${esc(educationCopy.showCoursework)}</span><i aria-hidden="true">+</i>
+      </button>
+      <ul class="tag-list coursework" id="coursework-${index}" hidden>${item.coursework.map((course) => `<li>${esc(course)}</li>`).join("")}</ul>
     </article>
   `).join("");
+  $$(".toggle").forEach((button) => {
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") !== "true";
+      button.setAttribute("aria-expanded", String(open));
+      $("span", button).textContent = open ? educationCopy.hideCoursework : educationCopy.showCoursework;
+      document.getElementById(button.getAttribute("aria-controls")).hidden = !open;
+    });
+  });
 
   $("#certifications").innerHTML = `
     <h3>${esc(educationCopy.certifications)}</h3>
     <ul>${data.certifications.map((item) => `
-      <li><strong>${esc(item.name)}</strong> · ${esc(item.date)} — ${esc(item.detail)}</li>
+      <li><strong>${esc(item.name)}</strong><span class="experience-period">${esc(item.date)}</span><p>${esc(item.detail)}</p></li>
     `).join("")}</ul>
   `;
 
-  $("#skills-list").innerHTML = Object.entries(data.skills).map(([category, skills]) => `
-    <div class="skills-row"><dt>${esc(category)}</dt><dd>${skills.map(esc).join(" · ")}</dd></div>
+  // Skills: filter chips by area.
+  const categories = Object.keys(data.skills);
+  const filters = $("#skill-filters");
+  filters.innerHTML = [data.copy.skills.all, ...categories].map((category, index) => `
+    <button class="filter" type="button" data-filter="${index === 0 ? "all" : esc(category)}" aria-pressed="${index === 0}">${esc(category)}</button>
   `).join("");
+  $("#skills-list").innerHTML = Object.entries(data.skills).flatMap(([category, skills]) =>
+    skills.map((skill) => `<li class="skill-chip" data-category="${esc(category)}"><span>${esc(skill)}</span><small>${esc(category)}</small></li>`)
+  ).join("");
+  $$(".filter", filters).forEach((button) => {
+    button.addEventListener("click", () => {
+      const value = button.dataset.filter;
+      $$(".filter", filters).forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+      $$(".skill-chip").forEach((chip) => {
+        chip.hidden = value !== "all" && chip.dataset.category !== value;
+      });
+    });
+  });
 
   const menuButton = $(".menu-button");
   const toggleMenu = (open) => {
@@ -169,6 +231,18 @@
     }
   });
 
+  const countUp = (element) => {
+    const target = Number.parseInt(element.dataset.count, 10);
+    if (reduceMotion || Number.isNaN(target)) return;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / 700, 1);
+      element.textContent = Math.round(target * (1 - (1 - progress) ** 3));
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  };
+
   if ("IntersectionObserver" in window) {
     const sections = data.navigation
       .map(({ id }) => document.getElementById(id))
@@ -189,10 +263,10 @@
     // Content is visible by default; only elements still below the fold get the fade-in.
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.remove("is-pending");
+        $$(".count", entry.target).forEach(countUp);
+        observer.unobserve(entry.target);
       });
     }, { rootMargin: "0px 0px -8% 0px" });
     $$(".reveal").forEach((element) => {

@@ -32,7 +32,7 @@ const portfolioContent = {
     navigation: "Primary navigation",
     experience: {
       title: "Experience",
-      subtitle: "Risk, compliance and product roles across banking and education."
+      subtitle: "Risk, compliance and product roles across banking and education. Select a role to see the details."
     },
     work: {
       title: "Selected Work",
@@ -53,12 +53,16 @@ const portfolioContent = {
       title: "Education",
       subtitle: "Graduate and undergraduate training in analytics and business.",
       coursework: "Coursework",
+      showCoursework: "Show coursework",
+      hideCoursework: "Hide coursework",
       involvement: "Leadership",
       certifications: "Certifications & programs"
     },
     skills: {
       title: "Skills",
-      subtitle: "Tools and methods used in day-to-day work."
+      subtitle: "Tools and methods used in day-to-day work. Filter by area.",
+      filterLabel: "Filter skills by area",
+      all: "All"
     },
     contact: {
       title: "Contact",
